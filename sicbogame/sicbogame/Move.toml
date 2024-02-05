@@ -1,0 +1,8 @@
+[package]
+name = "sicbogame"
+
+[dependencies]
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/mainnet" }
+
+[addresses]
+sicbogame = "0x0"
