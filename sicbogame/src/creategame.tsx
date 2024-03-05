@@ -39,22 +39,29 @@ export function Creategame({
         },
         {
             onSuccess: (tx) => {
-                client.
-                    queryEvents({
-                        query:{Transaction:tx.digest}
-                    }).then(PaginatedEvents=> {
-                        const events = JSON.stringify(PaginatedEvents.data[0].parsedJson);
-                        const result = JSON.parse(events)['msg'];
+                client.subscribeEvent({
+                    filter:{Sender:"0x772b31a5738f0ceb70d313c7f1361bb1a9fa9732f9f1c9255cb191a592cbf988"},onMessage(event) {
+                        onCreated("tx")
+                    }
+                });
+
                     
-                        if (result.length > 0) {
-                          onCreated(result)
-                        } else {
-                          onCreated('No events found for the given criteria.');
-                        }
-                      })
-                      .catch(error => { 
-                        console.error('Error querying events:', error);
-                      });
+                // client.
+                //     queryEvents({
+                //         query:{Transaction:tx.digest}
+                //     }).then(PaginatedEvents=> {
+                //         const events = JSON.stringify(PaginatedEvents.data[0].parsedJson);
+                //         const result = JSON.parse(events)['msg'];
+                    
+                //         if (result.length > 0) {
+                //           onCreated(result)
+                //         } else {
+                //           onCreated('No events found for the given criteria.');
+                //         }
+                //       })
+                //       .catch(error => { 
+                //         console.error('Error querying events:', error);
+                //       });
             },
         },
         );
